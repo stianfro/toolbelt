@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/stianfro/toolbelt/compare/v1.0.1...v1.0.2) (2025-07-04)
+
+
+### Bug Fixes
+
+* GitHub workflow permission issue for release tag determination ([#8](https://github.com/stianfro/toolbelt/issues/8)) ([dba2f2d](https://github.com/stianfro/toolbelt/commit/dba2f2d771ed339d6fb8446ad2647d30a090e092))
+* homebrew workflow bump-formula job failures ([#7](https://github.com/stianfro/toolbelt/issues/7)) ([5d14a71](https://github.com/stianfro/toolbelt/commit/5d14a71b0ed931fe3a0e155935c57231897d7657))
+
 ## [1.0.1](https://github.com/stianfro/toolbelt/compare/v1.0.0...v1.0.1) (2025-07-04)
 
 
