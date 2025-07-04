@@ -34,7 +34,7 @@ var joinCSVCmd = &cobra.Command{
 			if e.IsDir() {
 				continue
 			}
-			if strings.HasSuffix(e.Name(), ".csv") {
+			if strings.HasSuffix(strings.ToLower(e.Name()), ".csv") {
 				csvFiles = append(csvFiles, filepath.Join(dir, e.Name()))
 			}
 		}
