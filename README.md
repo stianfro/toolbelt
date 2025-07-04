@@ -32,5 +32,21 @@ brew install toolbelt
 Moves receipts from the `unorganized` directory into the monthly folder
 matching the date prefix on each file.
 
+### joincsv
+
+Combines all CSV files in a directory into one file. Usage:
+
+```bash
+toolbelt joincsv <directory> <output.csv>
+```
+
+### joinpdf
+
+Combines all PDF files in a directory into one file. Usage:
+
+```bash
+toolbelt joinpdf <directory> <output.pdf>
+```
+
 Releases are created automatically from conventional commits using release-please.
 Prebuilt binaries for common platforms are available on the release page.
