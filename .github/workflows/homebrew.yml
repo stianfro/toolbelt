@@ -23,7 +23,7 @@ jobs:
               "$GITHUB_OUTPUT"
           fi
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
       - uses: dawidd6/action-homebrew-bump-formula@v4
         with:
           token: ${{ secrets.HOMEBREW_TOKEN }}
