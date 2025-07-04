@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/stianfro/toolbelt/compare/v1.0.0...v1.0.1) (2025-07-04)
+
+
+### Bug Fixes
+
+* trigger release workflows after release-please ([#5](https://github.com/stianfro/toolbelt/issues/5)) ([0e1f530](https://github.com/stianfro/toolbelt/commit/0e1f53075d046adb5882d489d60bfa6315918cf7))
+
 ## 1.0.0 (2025-07-04)
 
 
