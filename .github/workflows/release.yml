@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build binaries
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o toolbelt-linux-amd64
+          GOOS=darwin GOARCH=amd64 go build -o toolbelt-darwin-amd64
+          GOOS=windows GOARCH=amd64 go build -o toolbelt-windows-amd64.exe
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            toolbelt-linux-amd64
+            toolbelt-darwin-amd64
+            toolbelt-windows-amd64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
