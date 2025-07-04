@@ -3,14 +3,24 @@ name: homebrew
 on:
   release:
     types: [published]
+  workflow_run:
+    workflows: ["release-please"]
+    types:
+      - completed
 
 jobs:
   bump-formula:
     runs-on: ubuntu-latest
     steps:
+      - name: Determine release tag
+        id: get_tag
+        if: github.event_name == 'workflow_run'
+        run: echo "tag=$(gh release view --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
       - uses: dawidd6/action-homebrew-bump-formula@v4
         with:
           token: ${{ secrets.HOMEBREW_TOKEN }}
           formula: toolbelt
           tap: stianfro/homebrew-toolbelt
-          tag: ${{ github.event.release.tag_name }}
+          tag: ${{ github.event.release.tag_name || steps.get_tag.outputs.tag }}

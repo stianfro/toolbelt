@@ -2,16 +2,28 @@ name: Release
 
 on:
   release:
-    types: [created]
+    types: [published]
+  workflow_run:
+    workflows: ["release-please"]
+    types:
+      - completed
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
+      - name: Determine release tag
+        id: get_tag
+        if: github.event_name == 'workflow_run'
+        run: echo "tag=$(gh release view --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Build binaries
         run: |
           mkdir -p dist
@@ -34,5 +46,6 @@ jobs:
             toolbelt-darwin-amd64.tar.gz
             toolbelt-darwin-arm64.tar.gz
             toolbelt-windows-amd64.zip
+          tag_name: ${{ github.event.release.tag_name || steps.get_tag.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
