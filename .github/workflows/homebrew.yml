@@ -8,6 +8,10 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   bump-formula:
     runs-on: ubuntu-latest
@@ -23,10 +27,10 @@ jobs:
               "$GITHUB_OUTPUT"
           fi
         env:
-          GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Bump Homebrew formula
         env:
-          HOMEBREW_TOKEN: ${{ secrets.HOMEBREW_TOKEN }}
+          HOMEBREW_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ steps.get_tag.outputs.tag }}
         run: |
           git clone --depth 1 https://x-access-token:${HOMEBREW_TOKEN}@github.com/stianfro/homebrew-toolbelt.git
