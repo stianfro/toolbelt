@@ -23,7 +23,7 @@ jobs:
         if: github.event_name == 'workflow_run'
         run: echo "tag=$(gh release view --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
       - name: Build binaries
         run: |
           mkdir -p dist
