@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/stianfro/toolbelt/compare/v1.1.0...v1.1.1) (2025-07-04)
+
+
+### Bug Fixes
+
+* remove unused import ([a1136f4](https://github.com/stianfro/toolbelt/commit/a1136f4f00ef7ead06861c2eee0608795812be63))
+
 ## [1.1.0](https://github.com/stianfro/toolbelt/compare/v1.0.2...v1.1.0) (2025-07-04)
 
 
