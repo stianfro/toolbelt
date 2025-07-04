@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/stianfro/toolbelt/compare/v1.0.2...v1.1.0) (2025-07-04)
+
+
+### Features
+
+* add joinpdf command ([#13](https://github.com/stianfro/toolbelt/issues/13)) ([cd34d1f](https://github.com/stianfro/toolbelt/commit/cd34d1f76c5dae73bccf6ef7afc8dd51a33a7874))
+
 ## [1.0.2](https://github.com/stianfro/toolbelt/compare/v1.0.1...v1.0.2) (2025-07-04)
 
 
