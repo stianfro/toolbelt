@@ -24,9 +24,21 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
-      - uses: dawidd6/action-homebrew-bump-formula@v4
-        with:
-          token: ${{ secrets.HOMEBREW_TOKEN }}
-          formula: toolbelt
-          tap: stianfro/homebrew-toolbelt
-          tag: ${{ steps.get_tag.outputs.tag }}
+      - name: Bump Homebrew formula
+        env:
+          HOMEBREW_TOKEN: ${{ secrets.HOMEBREW_TOKEN }}
+          TAG_NAME: ${{ steps.get_tag.outputs.tag }}
+        run: |
+          git clone --depth 1 https://x-access-token:${HOMEBREW_TOKEN}@github.com/stianfro/homebrew-toolbelt.git
+          cd homebrew-toolbelt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          FORMULA=Formula/toolbelt.rb
+          URL="https://github.com/stianfro/toolbelt/archive/refs/tags/${TAG_NAME}.tar.gz"
+          curl -Ls "$URL" -o toolbelt.tar.gz
+          SHA=$(shasum -a 256 toolbelt.tar.gz | awk '{print $1}')
+          sed -i -E "s|url \".*\"|url \"${URL}\"|" $FORMULA
+          sed -i -E "s|sha256 \".*\"|sha256 \"${SHA}\"|" $FORMULA
+          git add $FORMULA
+          git commit -m "toolbelt ${TAG_NAME}"
+          git push origin HEAD:main

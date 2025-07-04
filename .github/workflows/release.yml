@@ -38,14 +38,14 @@ jobs:
           GOOS=windows GOARCH=amd64 go build -o dist/toolbelt-windows-amd64.exe
           zip -j toolbelt-windows-amd64.zip dist/toolbelt-windows-amd64.exe
       - name: Upload release assets
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            toolbelt-linux-amd64.tar.gz
-            toolbelt-linux-arm64.tar.gz
-            toolbelt-darwin-amd64.tar.gz
-            toolbelt-darwin-arm64.tar.gz
-            toolbelt-windows-amd64.zip
-          tag_name: ${{ github.event.release.tag_name || steps.get_tag.outputs.tag }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ github.event.release.tag_name || steps.get_tag.outputs.tag }}
+        run: |
+          gh release upload "$TAG_NAME" \
+            toolbelt-linux-amd64.tar.gz \
+            toolbelt-linux-arm64.tar.gz \
+            toolbelt-darwin-amd64.tar.gz \
+            toolbelt-darwin-arm64.tar.gz \
+            toolbelt-windows-amd64.zip \
+            --clobber
