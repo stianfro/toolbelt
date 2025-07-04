@@ -16,4 +16,11 @@ Run the CLI with:
 toolbelt
 ```
 
+## Commands
+
+### organize
+
+Moves receipts from the `unorganized` directory into the monthly folder
+matching the date prefix on each file.
+
 Releases are published when tagging the repository. Prebuilt binaries for common platforms are available on the release page.
