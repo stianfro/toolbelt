@@ -39,7 +39,7 @@ var joinPDFCmd = &cobra.Command{
 		}
 
 		if len(pdfFiles) == 0 {
-			return errors.New("no pdf files found")
+			return fmt.Errorf("no PDF files found in directory %s", dir)
 		}
 
 		sort.Strings(pdfFiles)
