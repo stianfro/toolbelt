@@ -1,9 +1,8 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -15,15 +14,25 @@ jobs:
           go-version-file: go.mod
       - name: Build binaries
         run: |
-          GOOS=linux GOARCH=amd64 go build -o toolbelt-linux-amd64
-          GOOS=darwin GOARCH=amd64 go build -o toolbelt-darwin-amd64
-          GOOS=windows GOARCH=amd64 go build -o toolbelt-windows-amd64.exe
+          mkdir -p dist
+          GOOS=linux GOARCH=amd64 go build -o dist/toolbelt-linux-amd64
+          GOOS=linux GOARCH=arm64 go build -o dist/toolbelt-linux-arm64
+          GOOS=darwin GOARCH=amd64 go build -o dist/toolbelt-darwin-amd64
+          GOOS=darwin GOARCH=arm64 go build -o dist/toolbelt-darwin-arm64
+          tar -C dist -czf toolbelt-linux-amd64.tar.gz toolbelt-linux-amd64
+          tar -C dist -czf toolbelt-linux-arm64.tar.gz toolbelt-linux-arm64
+          tar -C dist -czf toolbelt-darwin-amd64.tar.gz toolbelt-darwin-amd64
+          tar -C dist -czf toolbelt-darwin-arm64.tar.gz toolbelt-darwin-arm64
+          GOOS=windows GOARCH=amd64 go build -o dist/toolbelt-windows-amd64.exe
+          zip -j toolbelt-windows-amd64.zip dist/toolbelt-windows-amd64.exe
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            toolbelt-linux-amd64
-            toolbelt-darwin-amd64
-            toolbelt-windows-amd64.exe
+            toolbelt-linux-amd64.tar.gz
+            toolbelt-linux-arm64.tar.gz
+            toolbelt-darwin-amd64.tar.gz
+            toolbelt-darwin-arm64.tar.gz
+            toolbelt-windows-amd64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

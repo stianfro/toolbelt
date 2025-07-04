@@ -16,6 +16,15 @@ Run the CLI with:
 toolbelt
 ```
 
+### Homebrew
+
+You can also install the CLI using Homebrew:
+
+```bash
+brew tap stianfro/toolbelt
+brew install toolbelt
+```
+
 ## Commands
 
 ### organize
@@ -23,4 +32,5 @@ toolbelt
 Moves receipts from the `unorganized` directory into the monthly folder
 matching the date prefix on each file.
 
-Releases are published when tagging the repository. Prebuilt binaries for common platforms are available on the release page.
+Releases are created automatically from conventional commits using release-please.
+Prebuilt binaries for common platforms are available on the release page.
