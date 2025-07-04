@@ -29,7 +29,7 @@ jobs:
           HOMEBREW_TOKEN: ${{ secrets.HOMEBREW_TOKEN }}
           TAG_NAME: ${{ steps.get_tag.outputs.tag }}
         run: |
-          git clone https://x-access-token:${HOMEBREW_TOKEN}@github.com/stianfro/homebrew-toolbelt.git
+          git clone --depth 1 https://x-access-token:${HOMEBREW_TOKEN}@github.com/stianfro/homebrew-toolbelt.git
           cd homebrew-toolbelt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
