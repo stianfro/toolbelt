@@ -17,5 +17,14 @@
 # Go workspace file
 go.work
 
-# Built toolbelt binary
+# Built binary
 toolbelt
+dist/
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db

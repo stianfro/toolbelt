@@ -12,10 +12,16 @@ jobs:
   bump-formula:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Determine release tag
         id: get_tag
-        if: github.event_name == 'workflow_run'
-        run: echo "tag=$(gh release view --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=$(gh release view --json tagName -q .tagName)" >> \
+              "$GITHUB_OUTPUT"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
       - uses: dawidd6/action-homebrew-bump-formula@v4
@@ -23,4 +29,4 @@ jobs:
           token: ${{ secrets.HOMEBREW_TOKEN }}
           formula: toolbelt
           tap: stianfro/homebrew-toolbelt
-          tag: ${{ github.event.release.tag_name || steps.get_tag.outputs.tag }}
+          tag: ${{ steps.get_tag.outputs.tag }}
